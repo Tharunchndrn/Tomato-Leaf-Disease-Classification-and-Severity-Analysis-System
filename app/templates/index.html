@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomato Leaf Disease Classification and Severity Analysis System</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="container">
+
+        <!-- HERO -->
+        <section class="glass-card hero">
+            <div class="hero-badge">
+                <i class="bi bi-flower1"></i>
+                <span>Image Processing • Deep Learning • Explainability</span>
+            </div>
+
+            <h1>Tomato Leaf Disease Classification and Severity Analysis System</h1>
+            <p>
+                An integrated computer vision system for tomato leaf disease classification,
+                quantitative severity analysis, and Grad-CAM-based explainability.
+            </p>
+        </section>
+
+        <!-- UPLOAD -->
+        <section class="glass-card upload-section">
+            <div class="section-header">
+                <div>
+                    <h2><i class="bi bi-cloud-arrow-up"></i> Upload Leaf Image</h2>
+                    <p>Select a tomato leaf image to run the full analysis pipeline.</p>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="upload-form">
+                <input type="file" name="leaf_image" id="leaf_image" accept=".jpg,.jpeg,.png" required hidden>
+
+                <label for="leaf_image" class="custom-file-upload">
+                    <div class="upload-left">
+                        <div class="upload-icon-wrap">
+                            <i class="bi bi-image"></i>
+                        </div>
+                        <div class="upload-text">
+                            <strong>Choose a tomato leaf image</strong>
+                            <span>Supported formats: JPG, JPEG, PNG</span>
+                        </div>
+                    </div>
+                    <div class="upload-action">Browse File</div>
+                </label>
+
+                <div class="selected-file" id="selectedFileName">No file selected</div>
+
+                <button type="submit" class="analyze-btn">
+                    <i class="bi bi-stars"></i>
+                    Analyze Image
+                </button>
+            </form>
+        </section>
+
+        {% if error %}
+        <div class="error-box glass-card">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        {% if results %}
+        <!-- RESULTS SUMMARY -->
+        <section class="glass-card content-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="bi bi-bar-chart-line"></i> Results Summary</h2>
+                    <p>Main prediction outputs and quantitative disease metrics.</p>
+                </div>
+            </div>
+
+            <div class="metrics-grid four">
+                <div class="metric-card primary">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-tag"></i></span>
+                        <span class="metric-label">Predicted Class</span>
+                    </div>
+                    <div class="metric-value">{{ results.predicted_class }}</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-patch-check"></i></span>
+                        <span class="metric-label">Confidence</span>
+                    </div>
+                    <div class="metric-value">{{ results.confidence }}%</div>
+                </div>
+
+                <div class="metric-card accent">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-activity"></i></span>
+                        <span class="metric-label">Disease Percentage</span>
+                    </div>
+                    <div class="metric-value">{{ results.disease_percentage }}%</div>
+                </div>
+
+                <div class="metric-card accent">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-thermometer-half"></i></span>
+                        <span class="metric-label">Severity</span>
+                    </div>
+                    <div class="metric-value">{{ results.severity }}</div>
+                </div>
+            </div>
+
+            <div class="metrics-grid three">
+                <div class="metric-card">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-bounding-box"></i></span>
+                        <span class="metric-label">Leaf Area</span>
+                    </div>
+                    <div class="metric-value">{{ results.leaf_area }} px</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-droplet-half"></i></span>
+                        <span class="metric-label">Diseased Area</span>
+                    </div>
+                    <div class="metric-value">{{ results.disease_area }} px</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-top">
+                        <span class="metric-icon"><i class="bi bi-tree"></i></span>
+                        <span class="metric-label">Healthy Area</span>
+                    </div>
+                    <div class="metric-value">{{ results.healthy_area }} px</div>
+                </div>
+            </div>
+
+            <div class="mini-note">
+                Pixel-based analysis estimated <strong>{{ results.leaf_area }}</strong> total leaf pixels,
+                of which <strong>{{ results.disease_area }}</strong> pixels were identified as diseased
+                after excluding detected shadow regions.
+            </div>
+        </section>
+
+        <!-- MAIN VISUALS -->
+        <section class="glass-card content-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="bi bi-images"></i> Main Visual Outputs</h2>
+                    <p>Primary visual outputs of the integrated analysis pipeline.</p>
+                </div>
+            </div>
+
+            <div class="image-grid main-grid">
+                <div class="image-panel">
+                    <div class="image-topbar">
+                        <span><i class="bi bi-card-image"></i> Original Image</span>
+                    </div>
+                    <img src="{{ url_for('static', filename=results.original_image.replace('static/', '')) }}"
+                        alt="Original Image">
+                </div>
+
+                <div class="image-panel">
+                    <div class="image-topbar">
+                        <span><i class="bi bi-eyedropper"></i> Detected Disease Output</span>
+                    </div>
+                    <img src="{{ url_for('static', filename=results.detected_image.replace('static/', '')) }}"
+                        alt="Detected Disease Output">
+                </div>
+
+                <div class="image-panel">
+                    <div class="image-topbar">
+                        <span><i class="bi bi-bullseye"></i> Grad-CAM Overlay</span>
+                    </div>
+                    <img src="{{ url_for('static', filename=results.gradcam_overlay.replace('static/', '')) }}"
+                        alt="Grad-CAM Overlay">
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERPRETATION -->
+        <section class="glass-card content-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="bi bi-journal-richtext"></i> Interpretation</h2>
+                </div>
+            </div>
+
+            <div class="interpret-box">
+                The final selected model predicted this leaf as
+                <strong>{{ results.predicted_class }}</strong>
+                with <strong>{{ results.confidence }}% confidence</strong>.
+                The image-processing pipeline estimated that
+                <strong>{{ results.disease_percentage }}%</strong> of the leaf area is diseased,
+                corresponding to <strong>{{ results.severity }}</strong>.
+                The Grad-CAM overlay highlights the image regions that most influenced
+                the classification decision.
+            </div>
+        </section>
+
+        <!-- DETAILED OUTPUTS -->
+        <section class="glass-card content-card">
+            <details class="details-card">
+                <summary>
+                    <span><i class="bi bi-sliders"></i> Show Additional Detailed Outputs</span>
+                    <i class="bi bi-chevron-down"></i>
+                </summary>
+
+                <div class="details-content">
+                    <div class="subsection-title">Additional Visual Outputs</div>
+
+                    <div class="image-grid detail-grid">
+                        <div class="image-panel small">
+                            <div class="image-topbar"><span>Leaf Only</span></div>
+                            <img src="{{ url_for('static', filename=results.leaf_only_image.replace('static/', '')) }}"
+                                alt="Leaf Only">
+                        </div>
+                        <div class="image-panel small">
+                            <div class="image-topbar"><span>Leaf Mask</span></div>
+                            <img src="{{ url_for('static', filename=results.leaf_mask_image.replace('static/', '')) }}"
+                                alt="Leaf Mask">
+                        </div>
+                        <div class="image-panel small">
+                            <div class="image-topbar"><span>Disease Mask</span></div>
+                            <img src="{{ url_for('static', filename=results.disease_mask_image.replace('static/', '')) }}"
+                                alt="Disease Mask">
+                        </div>
+                        <div class="image-panel small">
+                            <div class="image-topbar"><span>Shadow Mask</span></div>
+                            <img src="{{ url_for('static', filename=results.shadow_mask_image.replace('static/', '')) }}"
+                                alt="Shadow Mask">
+                        </div>
+                    </div>
+
+                    <div class="subsection-title">Raw Class Probabilities</div>
+
+                    <div class="table-wrap">
+                        <table class="prob-table">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Probability (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in results.probabilities %}
+                                <tr>
+                                    <td>{{ item.class_name }}</td>
+                                    <td>{{ item.probability }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+        </section>
+        {% endif %}
+    </div>
+
+    <script>
+        const fileInput = document.getElementById("leaf_image");
+        const fileNameDisplay = document.getElementById("selectedFileName");
+
+        if (fileInput && fileNameDisplay) {
+            fileInput.addEventListener("change", function () {
+                if (this.files.length > 0) {
+                    fileNameDisplay.textContent = "Selected: " + this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = "No file selected";
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
