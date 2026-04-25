@@ -1,0 +1,136 @@
+.main {
+    padding-top: 0.5rem;
+}
+
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1450px;
+}
+
+.hero-section {
+    padding: 0.6rem 0 0.4rem 0;
+    margin-bottom: 0.8rem;
+}
+
+.app-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #f8fafc;
+    line-height: 1.25;
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.app-subtitle {
+    font-size: 1rem;
+    color: #b7c4ba;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.7rem;
+    color: #f8fafc;
+}
+
+.upload-box {
+    background: linear-gradient(135deg, #0f1d16, #13241c);
+    border: 1px solid #355844;
+    border-radius: 16px;
+    padding: 0.9rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.info-card {
+    background: linear-gradient(135deg, #13241c, #183026);
+    border: 1px solid #2f5a46;
+    border-radius: 16px;
+    padding: 1rem 1rem 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+    min-height: 105px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.primary-card {
+    background: linear-gradient(135deg, #173325, #204331);
+    border: 1px solid #4f9b6f;
+}
+
+.accent-card {
+    background: linear-gradient(135deg, #2b2c17, #353820);
+    border: 1px solid #a79542;
+}
+
+.quant-card {
+    min-height: 95px;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #c0d2c6;
+    margin-bottom: 0.35rem;
+}
+
+.metric-value {
+    font-size: 1.22rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.35;
+}
+
+.image-card {
+    background: #111a14;
+    border: 1px solid #2f5a46;
+    border-radius: 18px;
+    padding: 0.8rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.interpret-box {
+    background: linear-gradient(135deg, #101812, #17201a);
+    border: 1px solid #4f9b6f;
+    border-left: 5px solid #7ad49b;
+    color: #ebf2ec;
+    padding: 1rem;
+    border-radius: 14px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.small-note {
+    color: #b7c4ba;
+    font-size: 0.92rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.7rem;
+}
+
+[data-testid="stFileUploader"] {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+[data-testid="stExpander"] {
+    border: 1px solid #2f5a46;
+    border-radius: 14px;
+    background-color: #111a14;
+}
+
+[data-testid="stMetric"] {
+    background: transparent;
+    border-radius: 12px;
+    padding: 0.2rem 0.1rem;
+}
+
+div[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+}
