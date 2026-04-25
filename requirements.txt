@@ -1,5 +1,12 @@
-streamlit
 opencv-python
 numpy
+tensorflow
+scikit-learn
 matplotlib
 jupyter
+
+#For Streamlit version 
+streamlit
+
+#For Flask Version:
+flask
