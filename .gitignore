@@ -2,3 +2,12 @@
 PlantVillage
 dataset
 __pycache__
+split_dataset
+logs
+augmented_samples
+static/results
+static/uploads
+app/static/results
+app/static/uploads
+*.keras
+*.h5
