@@ -102,7 +102,7 @@ The image-processing workflow includes:
 Below are the visual outputs from the system's analysis pipeline.
 
 <p align="center">
-  <img src="outputs/ip2.PNG" width="45%" alt="Disease Analysis Result" />
+  <img src="outputs/Interface.png" width="45%" alt="Disease Analysis Result" />
   <img src="outputs/Comparison.png" width="45%" alt="Model Comparison Plot" />
 </p>
 
