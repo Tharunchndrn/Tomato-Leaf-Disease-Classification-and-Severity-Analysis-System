@@ -1,24 +1,68 @@
-# 🌿 Tomato Leaf Disease Classification and Severity Analysis System
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Project-Computer%20Vision%20%7C%20Image%20Processing%20%7C%20Deep%20Learning-3b82f6?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Status-Prototype-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Best%20Model-EfficientNetB0-8b5cf6?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Test%20Accuracy-97.34%25-16a34a?style=for-the-badge" />
-</p>
+  <h1>🌿 Tomato Leaf Disease Classification and Severity Analysis</h1>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white" />
-  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" />
-  <img src="https://img.shields.io/badge/Keras-D00000?style=flat-square&logo=keras&logoColor=white" />
-  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" />
-  <img src="https://img.shields.io/badge/Matplotlib-11557c?style=flat-square&logo=plotly&logoColor=white" />
-  <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" />
-  <img src="https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white" />
-</p>
+  <p>
+    <b>Image Processing • Computer Vision • Deep Learning • Explainable AI</b>
+  </p>
 
----
+  <br/>
+
+  <img src="https://img.shields.io/badge/Project-Image%20Processing%20%7C%20Computer%20Vision%20%7C%20Deep%20Learning-2563eb?style=for-the-badge&logo=opencv&logoColor=white" />
+  <br/>
+  <img src="https://img.shields.io/badge/Status-Prototype-22c55e?style=for-the-badge&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/badge/Best%20Model-EfficientNetB0-7c3aed?style=for-the-badge&logo=tensorflow&logoColor=white" />
+  <img src="https://img.shields.io/badge/Test%20Accuracy-97.34%25-16a34a?style=for-the-badge&logo=target&logoColor=white" />
+
+  <br/>
+  <br/>
+
+  <p>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+    <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" />
+    <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
+    <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white" />
+  </p>
+
+  <p>
+    <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
+    <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=plotly&logoColor=white" />
+    <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" />
+    <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+  </p>
+
+  <br/>
+
+  <table width="90%">
+    <tr>
+      <td align="center"><b>🌱 Disease Classes</b></td>
+      <td align="center"><b>🧠 Models Compared</b></td>
+      <td align="center"><b>📊 Best Accuracy</b></td>
+      <td align="center"><b>🔍 Interpretability</b></td>
+    </tr>
+    <tr>
+      <td align="center">
+        Early Blight<br/>
+        Late Blight<br/>
+        Healthy
+      </td>
+      <td align="center">
+        Custom CNN<br/>
+        MobileNetV2<br/>
+        EfficientNetB0
+      </td>
+      <td align="center">
+        <b>97.34%</b><br/>
+        EfficientNetB0
+      </td>
+      <td align="center">
+        Grad-CAM<br/>
+        Severity Mapping
+      </td>
+    </tr>
+  </table>
+
+</div>
 
 ## 📌 Overview
 
@@ -39,12 +83,33 @@ The system not only predicts the leaf disease class, but also estimates:
 
 ---
 
-## ✨ Key Features
+## 📂 Dataset
 
-- Classifies tomato leaf images into:
-  - **Early Blight**
-  - **Late Blight**
-  - **Healthy**
+
+This project uses the **PlantVillage tomato leaf dataset**.  
+For this prototype, the dataset was narrowed down to **3 important classes**:
+
+<div align="center">
+
+| 🌿 Class | 🏷️ Category | 🎯 Purpose |
+|---|---|---|
+| Early Blight | Diseased | Detect common fungal leaf infection |
+| Late Blight | Diseased | Detect severe tomato leaf disease |
+| Healthy | Non-diseased | Compare diseased vs normal leaf condition |
+
+</div>
+
+#### Why were only these 3 classes selected?
+
+The project focuses on these classes to keep the system clear, controlled, and suitable for academic experimentation.
+
+
+## ✨ Key Features
+- Maintain a focused and interpretable classification problem
+- Clearly compare **diseased vs healthy** tomato leaf conditions
+- Support image processing-based **severity analysis**
+- Evaluate multiple deep learning models under a controlled setup
+- Build a simple but meaningful prototype for disease classification and severity estimation
 - Performs **pixel-based severity analysis**
 - Measures diseased and healthy regions
 - Uses **Grad-CAM** to highlight regions influencing predictions
@@ -102,8 +167,11 @@ The image-processing workflow includes:
 Below are the visual outputs from the system's analysis pipeline.
 
 <p align="center">
-  <img src="outputs/ip2.PNG" width="45%" alt="Disease Analysis Result" />
-  <img src="outputs/Comparison.png" width="45%" alt="Model Comparison Plot" />
+  <img src="outputs/ip2.PNG" width="80%" alt="Disease Analysis Result" />
+</p>
+
+<p align="center">
+  <img src="outputs/Comparison.png" width="80%" alt="Model Comparison Plot" />
 </p>
 
 ---
@@ -164,4 +232,4 @@ tomato-leaf-disease-analysis/
 ---
 
 ## 👨‍💻 Developer
-**Tharun Chandran **
+**Tharun Chandran**
