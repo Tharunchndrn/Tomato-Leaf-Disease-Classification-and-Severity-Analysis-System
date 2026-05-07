@@ -2,10 +2,8 @@ import cv2
 import numpy as np
 
 
-def resize_image(image, max_width=700):
-    """
-    Resize image while keeping aspect ratio.
-    """
+def resize_image(image, max_width=700):   
+    #Resize image while keeping aspect ratio.
     h, w = image.shape[:2]
     if w <= max_width:
         return image
@@ -14,18 +12,15 @@ def resize_image(image, max_width=700):
 
 
 def preprocess_image(img):
-    """
-    Keep preprocessing light so the original color information is preserved.
-    """
+    #Keep preprocessing light so the original color information is preserved.
     img = resize_image(img, max_width=700)
     return img
 
 
 def extract_leaf_mask(img):
-    """
-    Use the same leaf detection logic that worked in your old app:
-    threshold on the Saturation channel.
-    """
+    #Use the same leaf detection logic that worked in your old app:
+    #threshold on the Saturation channel.
+    
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     _, s, _ = cv2.split(img_hsv)
 
@@ -39,9 +34,8 @@ def extract_leaf_mask(img):
 
 
 def detect_shadow_mask(img, leaf_mask):
-    """
-    Detect very dark regions inside the leaf using the V channel.
-    """
+    #Detect very dark regions inside the leaf using the V channel.
+    
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     _, _, v = cv2.split(img_hsv)
 
@@ -112,9 +106,8 @@ def extract_disease_mask(img, leaf_mask, shadow_mask=None):
 
 
 def calculate_metrics(leaf_mask, disease_mask):
-    """
-    Calculate leaf area, diseased area, healthy area, and disease percentage.
-    """
+    #Calculate leaf area, diseased area, healthy area, and disease percentage.
+
     leaf_area = cv2.countNonZero(leaf_mask)
     disease_area = cv2.countNonZero(disease_mask)
     healthy_area = max(leaf_area - disease_area, 0)
@@ -133,9 +126,8 @@ def calculate_metrics(leaf_mask, disease_mask):
 
 
 def get_severity_label(disease_percentage):
-    """
-    Convert disease percentage to qualitative severity level.
-    """
+    #Convert disease percentage to qualitative severity level.
+
     if disease_percentage <= 5:
         return "Very Low / Healthy"
     elif disease_percentage <= 20:
@@ -147,19 +139,16 @@ def get_severity_label(disease_percentage):
 
 
 def create_leaf_only(img, leaf_mask):
-    """
-    Keep only the detected leaf region.
-    """
+    #Keep only the detected leaf region.
+    
     leaf_only = cv2.bitwise_and(img, img, mask=leaf_mask)
     return cv2.cvtColor(leaf_only, cv2.COLOR_BGR2RGB)
 
 
 def create_overlay(img, disease_mask, disease_percentage, severity, shadow_mask=None):
-    """
-    Cleaner final visualization:
-    Diseased regions = red
-    No shadow overlay in final result
-    """
+    #Cleaner final visualization:
+    #Diseased regions = red
+    #No shadow overlay in final result
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     overlay = img_rgb.copy()
 
